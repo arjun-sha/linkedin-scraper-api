@@ -1,5 +1,5 @@
 <div align="center" style="text-align: center --force;">
-  <img src="/assets/logo.png" style="width: 8%; height: auto;" alt="Logo" />
+  <img src="/assets/logo.png" style="width: 10%; height: auto;" alt="Logo" />
   <h1 align="center" style="text-align: center --force; "><a href='https://playwright.dev'>Linkedin</a> Scraper API </h1>
 
   <a href="https://code.turbolab.in/research-and-development/playwright-turnstile/-/tree/master?ref_type=heads">
@@ -128,6 +128,8 @@ data = {
 response = requests.post(url=url, json=data)
 ```
 
+_For testing purpuses you can use x_api_key: `588b7d2a-9053-4907-b3c1-96fb9d3d1f3b`_
+
 It will return the profile details of the logged-in user.
 
 **Fields**
@@ -148,12 +150,9 @@ It will return the profile details of the logged-in user.
 
 <img src="/assets/profile_data.png" style="width: 75%; height: auto;"/>
 
-
-
-
 ---
 
-1. **Connections Scraper**
+2. **Connections Scraper**
 
 ```
 /api/connections
@@ -204,4 +203,4 @@ data = {
 
 response = requests.post(url=url, json=data)
 ```
-
+---
