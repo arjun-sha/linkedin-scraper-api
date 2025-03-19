@@ -1,10 +1,13 @@
-from linkedin_scraper.scraper.login import Login
-from linkedin_scraper.scraper.utils import get_headers, extract_public_identifier
-from linkedin_scraper.scraper.requests import Request
-from linkedin_scraper.scraper.parser import LinkedinParser
 from copy import deepcopy
-from dynaconf_config import settings
+
 from tenacity import retry, stop_after_attempt
+
+from dynaconf_config import settings
+from linkedin_scraper.scraper.login import Login
+from linkedin_scraper.scraper.parser import LinkedinParser
+from linkedin_scraper.scraper.requests import Request
+from linkedin_scraper.scraper.utils import (extract_public_identifier,
+                                            get_headers)
 
 
 class LinkedinProfileScraper:
@@ -16,7 +19,7 @@ class LinkedinProfileScraper:
         self.cookies = self.session.get_cookie()
         self.request = Request()
 
-    @retry(stop=stop_after_attempt(settings.RETRY))
+    @retry(stop=stop_after_attempt(10))
     async def get_profile_data(self, public_identifier: str=None,
                                uri: str=None):
         """
@@ -53,7 +56,7 @@ class LinkedinProfileScraper:
         profile_data.update(conatct_details)
         return profile_data
 
-    @retry(stop=stop_after_attempt(settings.RETRY))
+    @retry(stop=stop_after_attempt(10))
     async def _get_contact_details(self, public_identifier):
         """
         Send API request to the contact details and return the data as dict.

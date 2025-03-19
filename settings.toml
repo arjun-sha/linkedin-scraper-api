@@ -1,9 +1,6 @@
 [default]
-
 RETRY=10
 WORKER=5
-
-# Proxies
 PROXY_1=None
 PROXY_2=None
 PROXY_3=None

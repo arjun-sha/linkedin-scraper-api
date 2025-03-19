@@ -1,0 +1,1 @@
+gunicorn -c guvicorn_config.py --access-logfile - --error-logfile - --log-level debug linkedin_scraper.web.main:main

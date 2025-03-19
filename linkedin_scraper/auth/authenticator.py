@@ -19,7 +19,7 @@ def authenticate(item: object) -> bool:
 
     # Setting up the Path to the secret file
     BASEPATH = os.path.dirname(__file__)
-    path_secretfile = os.path.join(BASEPATH, "secret.yaml")
+    path_secretfile = os.path.join(BASEPATH, "secrets.yaml")
 
     # Opening all valid API keys
     with open(path_secretfile, "r") as file:

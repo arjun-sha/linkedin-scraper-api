@@ -8,18 +8,16 @@ class LinkedinParser:
     def __init__(self, response):
         """
         Initializes the LinkedinParser with a response object.
-
         Args:
             response (Response): The response object containing LinkedIn profile data.
         """
         self.response = response
-        self.json_data = response.json
+        self.json_data = response.json()
 
     def extract_profile_data(self) -> dict:
         """
         Extracts general profile details including name, headline, summary, 
         industry, location, skills, experience, and education.
-
         Returns:
             dict: A dictionary containing the extracted profile information:
                 - public_id (str): LinkedIn public identifier.
@@ -45,7 +43,6 @@ class LinkedinParser:
 
         full_name = f"{first_name} {last_name}"
         summary = " ".join(summary.split()).strip() if summary else None
-
         return {
             "public_id": public_id,
             "full_name": full_name,
@@ -61,7 +58,6 @@ class LinkedinParser:
     def extract_contact_details(self) -> dict:
         """
         Extracts the contact details such as email and phone number.
-
         Returns:
             dict: A dictionary containing:
                 - email (str): The user's email address.
@@ -75,7 +71,6 @@ class LinkedinParser:
     def extract_connections_profile_ids(self) -> list:
         """
         Extracts LinkedIn public identifiers of connections.
-
         Returns:
             list: A list of LinkedIn profile IDs of the user's connections.
         """
@@ -93,7 +88,6 @@ class LinkedinParser:
     def _extract_skills(self) -> list:
         """
         Extracts a list of skills from the profile.
-
         Returns:
             list: A list of skill names.
         """
@@ -106,7 +100,6 @@ class LinkedinParser:
     def _extract_experience(self) -> list:
         """
         Extracts work experience details.
-
         Returns:
             list: A list of dictionaries containing:
                 - job_title (str): Job title.
@@ -133,7 +126,6 @@ class LinkedinParser:
     def _extract_education(self) -> list:
         """
         Extracts education details.
-
         Returns:
             list: A list of dictionaries containing:
                 - school_name (str): Name of the school/university.

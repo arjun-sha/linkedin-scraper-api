@@ -1,16 +1,15 @@
 import asyncio
 from copy import deepcopy
 
+from tenacity import retry, stop_after_attempt
+
 from dynaconf_config import settings
 from linkedin_scraper.scraper.login import Login
 from linkedin_scraper.scraper.parser import LinkedinParser
 from linkedin_scraper.scraper.profile_scraper import LinkedinProfileScraper
 from linkedin_scraper.scraper.requests import Request
 from linkedin_scraper.scraper.utils import (decode_pagination_id,
-                                            encode_pagination_id,
-                                            extract_public_identifier,
-                                            get_headers)
-from tenacity import retry, stop_after_attempt
+                                            encode_pagination_id, get_headers)
 
 
 class LinkedinConnectionsScraper:
@@ -22,7 +21,7 @@ class LinkedinConnectionsScraper:
         self.cookies = self.session.get_cookie()
         self.request = Request()
 
-    @retry(stop=stop_after_attempt(settings.RETRY))
+    @retry(stop=stop_after_attempt(10))
     async def _get_listing_data(self, page_number):
         """
         Extracts the connections profile IDs
@@ -86,11 +85,12 @@ class LinkedinConnectionsScraper:
         """
         scraper = LinkedinProfileScraper(email=self.email, password=self.password)
 
-        semaphore = asyncio.Semaphore(5)
+        semaphore = asyncio.Semaphore(6)
         async def worker(profile_id):
             async with semaphore:
-                await scraper.get_profile_data(public_identifier=profile_id)
+                profile_data = await scraper.get_profile_data(public_identifier=profile_id)
+                return profile_data
 
         tasks = [worker(profile_id) for profile_id in connections_profile_ids]
-        profile_data = await asyncio.gather(*tasks)
-        return profile_data
+        all_profile_data = await asyncio.gather(*tasks)
+        return all_profile_data

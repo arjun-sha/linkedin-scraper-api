@@ -1,5 +1,6 @@
 from curl_cffi.requests import AsyncSession
 from curl_cffi.requests.errors import CurlError, RequestsError
+
 from linkedin_scraper.exceptions import RequestFailedException
 from linkedin_scraper.scraper.requests.abstract import AbstractRequest
 from linkedin_scraper.scraper.requests.response import Response
