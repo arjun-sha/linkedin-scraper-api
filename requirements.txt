@@ -6,3 +6,4 @@ tenacity==8.2.2
 uvicorn==0.22.0
 gunicorn==20.1.0
 curl-cffi==0.5.7
+pyyaml
