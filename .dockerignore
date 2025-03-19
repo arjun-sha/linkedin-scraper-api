@@ -1,0 +1,6 @@
+
+tests/
+venv/
+env/
+.flake8
+.gitignore
